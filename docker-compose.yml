@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    container_name: xfive_app
+    build: ./
+    ports:
+      - '8080:8080'
+    hostname: xfive_app
+    depends_on:
+      - db
+
+  db:
+    image: 'postgres:11.1'
+    ports:
+      - '5432:5432'
+    hostname: xfive_db
+    environment:
+      POSTGRES_DB: xfive
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+
+  nginx:
+    container_name: xfive_nginx
+    build: docker/docker-nginx
+    restart: always
+    ports:
+      - '80:8080'
+    hostname: xfive_nginx
+    links:
+      - app

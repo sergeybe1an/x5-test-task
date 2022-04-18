@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/xfive
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 60000
+  jpa:
+    show-sql: false
+  liquibase:
+    change-log: classpath:/db/changelog-master.xml
+
+jwt:
+  token:
+    secret: somesecret
+    expired: 360000000000000
